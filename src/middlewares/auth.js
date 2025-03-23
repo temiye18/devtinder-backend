@@ -11,7 +11,7 @@ const userAuth = async (req, res, next) => {
       return res.status(401).json({ message: "Please login" });
     }
 
-    const decodedObj = jwt.verify(token, "DEV@Tinder$790");
+    const decodedObj = jwt.verify(token, process.env.JWT_SECRET);
     const { _id } = decodedObj;
 
     // Find the user
