@@ -8,6 +8,9 @@ const authRouter = require("./routes/auth");
 const requestRouter = require("./routes/request");
 const profileRouter = require("./routes/profile");
 const userRouter = require("./routes/user");
+const chatRouter = require("./routes/chat");
+const http = require("http");
+const initializeSocket = require("./utils/socket");
 
 app.use(
   cors({
@@ -23,12 +26,16 @@ app.use("/auth", authRouter);
 app.use("/request", requestRouter);
 app.use("/profile", profileRouter);
 app.use("/user", userRouter);
+app.use("/chat", chatRouter);
+
+const server = http.createServer(app);
+initializeSocket(server);
 
 connectDB()
   .then(() => {
     console.log("Database connection established...");
 
-    app.listen(process.env.PORT || 7777, () => {
+    server.listen(process.env.PORT || 7777, () => {
       console.log(`Server is running on port ${process.env.PORT || 7777}`);
     });
   })
