@@ -32,24 +32,24 @@ const initializeSocket = (server) => {
       async ({ firstName, lastName, userId, targetUserId, text }) => {
         try {
           // Check if userId & targetUserId are friends
-          const existingConnectionRequest = await ConnectionRequest.findOne({
-            $or: [
-              {
-                fromUserId: userId,
-                toUserId: targetUserId,
-                status: "accepted",
-              },
-              {
-                fromUserId: targetUserId,
-                toUserId: userId,
-                status: "accepted",
-              },
-            ],
-          });
+          //   const existingConnectionRequest = await ConnectionRequest.findOne({
+          //     $or: [
+          //       {
+          //         fromUserId: userId,
+          //         toUserId: targetUserId,
+          //         status: "accepted",
+          //       },
+          //       {
+          //         fromUserId: targetUserId,
+          //         toUserId: userId,
+          //         status: "accepted",
+          //       },
+          //     ],
+          //   });
 
-          if (!existingConnectionRequest) {
-            throw new Error("You are not friends");
-          }
+          //   if (!existingConnectionRequest) {
+          //     throw new Error("You are not friends");
+          //   }
 
           const roomId = getSecretRoomId(userId, targetUserId);
           console.log(`${firstName} ${lastName} sends ${text}`);
